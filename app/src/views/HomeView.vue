@@ -1,13 +1,31 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
     <div class="container mx-auto p-4">
-      <h1 class="text-3xl font-bold text-center mb-4">Hello Vite!</h1>
-      <button class="btn btn-primary bg-black">Click Me</button>
+      <div class="card" v-for="a in arrestData" :key="a.arrest_key">
+        <h2>{{ a.arrest_boro }}</h2>
+      </div>
     </div>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
   </main>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+const arrestData = ref('')
+async function getArrests() {
+  try {
+    const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
+    if (response.status != 200) {
+      throw new Error(response)
+    } else {
+      const data = await response.json()
+      arrestData.value = data
+      return data
+    }
+  } catch (error) {
+    alert('could not find that character')
+  }
+}
+onMounted(() => {
+  getArrests()
+})
+</script>
