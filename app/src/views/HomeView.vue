@@ -1,15 +1,18 @@
 <template>
   <main>
     <div class="container mx-auto p-4">
-      <div class="card" v-for="a in arrestData" :key="a.arrest_key">
+      <!-- <div class="card" v-for="a in arrestData" :key="a.arrest_key">
         <h2>{{ a.arrest_boro }}</h2>
-      </div>
+      </div> -->
     </div>
+    <BarChart />
   </main>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { Chart } from 'chart.js'
+import BarChart from '@/components/BarChart.vue'
 const arrestData = ref('')
 async function getArrests() {
   try {
