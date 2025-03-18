@@ -28,7 +28,29 @@ async function getArrests() {
     alert('could not find that character')
   }
 }
-onMounted(() => {
-  getArrests()
+onMounted(async () => {
+  const arrests = await getArrests()
+  //filter to get arrests per year
+  const arrestsPerYear = [{ year: 0, amount: 0 }]
+  console.log(arrestsPerYear.map((a) => Object.keys(a)))
+
+  arrests.forEach((arrest) => {
+    let allYearValues = arrestsPerYear.map((arrest) => arrest[Object.keys(arrest)[0]])
+    arrestYear = arrest.arrest_date.slice(0, 4)
+
+    if (allYearValues.includes(arrestYear)) {
+      arrestsPerYear.forEach((obj) => {
+        if (obj.year === arrestYear) {
+          obj.amount++
+        }
+      })
+    } else {
+      arrestsPerYear.push({ year: arrestYear, amount: 1 })
+    }
+  }) /* let keys = arr.map(obj => Object.keys(obj)).flat();
+let keyIsMissing = !keys.includes(keyToCheck);
+
+console.log(keyIsMissing); // false
+ */
 })
 </script>
