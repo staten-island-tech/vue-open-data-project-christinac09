@@ -1,44 +1,30 @@
+<template>
+  <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
+</template>
+
 <script setup>
-import { onMounted, ref } from 'vue'
-import { Chart } from 'chart.js'
-import { list } from 'postcss'
+import { Bar } from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js'
 
-const chartRef = ref(null)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-/* onMounted(() => {
-  if (chartRef.value) {
-    new Chart(chartRef.value, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-          {
-            label: 'Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    })
-  }
-}) */
+/* const chartData = {
+  labels: ['January', 'February', 'March'],
+  datasets: [{ data: [40, 20, 12] }],
+} */
 
-defineProps({
-  labels: Array,
-  stats: Array,
+const chartOptions = {
+  responsive: true,
+}
+const props = defineProps({
+  chartData: Object,
 })
 </script>
-
-<template>
-  <div>
-    <canvas ref="chartRef"></canvas>
-  </div>
-</template>

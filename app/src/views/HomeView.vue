@@ -5,15 +5,16 @@
         <h2>{{ a.arrest_boro }}</h2>
       </div> -->
     </div>
-    <BarChart />
+    <Bar :data="arrestData" />
   </main>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Chart } from 'chart.js'
-import BarChart from '@/components/BarChart.vue'
+import Bar from '@/components/BarChart.vue'
 const arrestData = ref('')
+const chartData = ref('')
 async function getArrests() {
   try {
     const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
@@ -31,23 +32,30 @@ async function getArrests() {
 onMounted(async () => {
   const arrests = await getArrests()
   //filter to get arrests per year
-  const arrestsPerYear = [{ year: 0, amount: 0 }]
-  console.log(arrestsPerYear.map((a) => Object.keys(a)))
+  const arrestsPerMonth = []
+  console.log(arrestsPerMonth.map((a) => Object.keys(a)))
 
   arrests.forEach((arrest) => {
-    let allYearValues = arrestsPerYear.map((arrest) => arrest[Object.keys(arrest)[0]])
-    arrestYear = arrest.arrest_date.slice(0, 4)
+    let allMonthValues = arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]])
+    let arrestMonth = arrest.arrest_date.slice(5, 7)
 
-    if (allYearValues.includes(arrestYear)) {
-      arrestsPerYear.forEach((obj) => {
-        if (obj.year === arrestYear) {
+    if (allMonthValues.includes(arrestMonth)) {
+      arrestsPerMonth.forEach((obj) => {
+        if (obj.month === arrestMonth) {
           obj.amount++
         }
       })
     } else {
-      arrestsPerYear.push({ year: arrestYear, amount: 1 })
+      arrestsPerMonth.push({ month: arrestMonth, amount: 1 })
     }
-  }) /* let keys = arr.map(obj => Object.keys(obj)).flat();
+  })
+  console.log(arrestsPerMonth)
+  chartData.value = {
+    labels: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]]),
+    datasets: [{ data: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[1]]) }],
+  }
+  /* let keys = arr.map(obj => Object.keys(obj)).flat();
+  
 let keyIsMissing = !keys.includes(keyToCheck);
 
 console.log(keyIsMissing); // false
