@@ -5,16 +5,16 @@
         <h2>{{ a.arrest_boro }}</h2>
       </div> -->
     </div>
-    <Bar :data="arrestData" />
+    <BarChart v-if="loaded" :chartData="monthlyData" :chartOptions="chartOptions" />
   </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Chart } from 'chart.js'
-import Bar from '@/components/BarChart.vue'
+import { ref, reactive, onMounted } from 'vue'
+import BarChart from '@/components/BarChart.vue'
+let loaded = false
+const monthlyData = ref()
 const arrestData = ref('')
-const chartData = ref('')
 async function getArrests() {
   try {
     const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
@@ -33,7 +33,6 @@ onMounted(async () => {
   const arrests = await getArrests()
   //filter to get arrests per year
   const arrestsPerMonth = []
-  console.log(arrestsPerMonth.map((a) => Object.keys(a)))
 
   arrests.forEach((arrest) => {
     let allMonthValues = arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]])
@@ -50,15 +49,14 @@ onMounted(async () => {
     }
   })
   console.log(arrestsPerMonth)
-  chartData.value = {
+  monthlyData.value = {
     labels: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]]),
     datasets: [{ data: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[1]]) }],
   }
-  /* let keys = arr.map(obj => Object.keys(obj)).flat();
-  
-let keyIsMissing = !keys.includes(keyToCheck);
-
-console.log(keyIsMissing); // false
- */
+  console.log(monthlyData.value)
+  loaded = true
+})
+const chartOptions = reactive({
+  responsive: true,
 })
 </script>
