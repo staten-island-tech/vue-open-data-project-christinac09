@@ -12,9 +12,12 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import BarChart from '@/components/BarChart.vue'
-let loaded = false
-const monthlyData = ref()
-const arrestData = ref('')
+let loaded = ref(false)
+const monthlyData = ref({
+  labels: [],
+  datasets: [{data:[],}]
+})
+const arrestData = ref([])
 async function getArrests() {
   try {
     const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
@@ -26,35 +29,34 @@ async function getArrests() {
       return data
     }
   } catch (error) {
-    alert('could not find that character')
+    alert('error fetching arrest data')
   }
 }
 onMounted(async () => {
   const arrests = await getArrests()
-  //filter to get arrests per year
+  //filter to get arrests per month
   const arrestsPerMonth = []
 
   arrests.forEach((arrest) => {
-    let allMonthValues = arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]])
     let arrestMonth = arrest.arrest_date.slice(5, 7)
 
-    if (allMonthValues.includes(arrestMonth)) {
-      arrestsPerMonth.forEach((obj) => {
-        if (obj.month === arrestMonth) {
-          obj.amount++
-        }
-      })
+    let existingMonth = arrestsPerMonth.find((obj) => obj.month === arrestMonth)
+    if (existingMonth) {
+      existingMonth.amount++
     } else {
       arrestsPerMonth.push({ month: arrestMonth, amount: 1 })
     }
   })
   console.log(arrestsPerMonth)
   monthlyData.value = {
-    labels: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[0]]),
-    datasets: [{ data: arrestsPerMonth.map((arrest) => arrest[Object.keys(arrest)[1]]) }],
+    labels: arrestsPerMonth.map((arrest) => arrest.month),
+    datasets: [{ label: 'Monthly Arrests in 2024', data: arrestsPerMonth.map((arrest) => arrest.amount) }],
   }
   console.log(monthlyData.value)
-  loaded = true
+  /* const chartOptions = reactive({
+  responsive: true,
+}) */
+  loaded.value = true
 })
 const chartOptions = reactive({
   responsive: true,
