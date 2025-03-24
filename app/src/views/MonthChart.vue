@@ -70,7 +70,11 @@ async function getMonthlyData(data) {
   monthlyData.value = {
     labels: arrestsPerMonth.map((arrest) => arrest.month),
     datasets: [
-      { label: 'Monthly Arrests in 2024', data: arrestsPerMonth.map((arrest) => arrest.amount) },
+      {
+        label: 'Monthly Arrests in 2024',
+        data: arrestsPerMonth.map((arrest) => arrest.amount),
+        borderColor: ['#a4b58c'],
+      },
     ],
   }
 }

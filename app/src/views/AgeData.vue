@@ -18,6 +18,9 @@ const ageData = ref({
 })
 const chartOptions = reactive({
   responsive: true,
+  plugins: {
+    legend: false,
+  },
 })
 async function getArrests() {
   try {
@@ -71,6 +74,7 @@ async function getSpecificAge(data, age) {
           {
             label: 'Types of Arrests per Age Group',
             data: arrest.types.map((type) => type.count),
+            backgroundColor: ['#a5b299', '#c1c4a4', '#b7c297'],
           },
         ],
       }

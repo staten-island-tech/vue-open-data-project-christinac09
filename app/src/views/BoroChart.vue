@@ -1,12 +1,12 @@
 <template>
   <div class="w-[80vw] max-h-screen absolute top-36 left-0">
-    <PieChart v-if="loaded" :chartData="boroughData" :chartOptions="chartOptions" />
+    <BarChart v-if="loaded" :chartData="boroughData" :chartOptions="chartOptions" />
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import PieChart from '../components/PieChart.vue'
+import BarChart from '../components/BarChart.vue'
 let loaded = ref(false)
 const arrestData = ref([])
 const boroughData = ref({
@@ -44,7 +44,13 @@ async function getBoroData(data) {
   })
   boroughData.value = {
     labels: arrestsPerBorough.map((arrest) => arrest.boro),
-    datasets: [{ label: 'label', data: arrestsPerBorough.map((arrest) => arrest.amount) }],
+    datasets: [
+      {
+        label: 'Number of Arrests',
+        data: arrestsPerBorough.map((arrest) => arrest.amount),
+        backgroundColor: ['#8ba49a'],
+      },
+    ],
   }
 }
 onMounted(async () => {
