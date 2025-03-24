@@ -20,6 +20,10 @@ const chartOptions = reactive({
   responsive: true,
   plugins: {
     legend: false,
+    title: {
+      display: true,
+      text: 'Arrest Type Distribution by Age Group ',
+    },
   },
 })
 async function getArrests() {
