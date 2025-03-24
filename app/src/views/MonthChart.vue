@@ -18,7 +18,7 @@ const chartOptions = ref({
   plugins: {
     title: {
       display: true,
-      text: 'My Line Chart',
+      text: 'Arrests Per Month',
     },
     legend: {
       display: true,
