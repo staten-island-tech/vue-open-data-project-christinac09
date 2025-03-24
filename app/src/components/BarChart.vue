@@ -1,5 +1,7 @@
 <template>
-  <Bar id="bar-chart" :options="chartOptions" :data="chartData" />
+  <div class="w-[90%] mx-auto max-h-[80vh]">
+    <Bar id="bar-chart" :options="chartOptions" :data="chartData" />
+  </div>
 </template>
 
 <script setup>
@@ -13,15 +15,11 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js'
-
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-/* const chartData = {
-  labels: ['January', 'February', 'March'],
-  datasets: [{ data: [40, 20, 12] }],
-} */
 defineProps({
   chartData: Object,
   chartOptions: Object,
 })
 </script>
+
+<style scoped></style>

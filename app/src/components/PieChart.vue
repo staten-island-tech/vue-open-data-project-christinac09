@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="w-[90%] mx-auto max-h-[80vh]">
     <Pie id="pie-chart" :options="chartOptions" :data="chartData"></Pie>
-    <Doughnut id="donut-chart" :options="chartOptions" :data="chartData"></Doughnut>
   </div>
 </template>
 

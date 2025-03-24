@@ -3,11 +3,17 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <header class="absolute top-8 left-16">
+    <h1 class="text-3xl my-4">NYC Arrest Data</h1>
     <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav class="mt-2">
+        <RouterLink to="/" class="px-8 border-r-2 active:text-black">Home</RouterLink>
+        <RouterLink to="/arrests-by-month" class="px-8 active:text-black"
+          >Monthly Arrests</RouterLink
+        >
+        <RouterLink to="/arrests-by-boro" class="px-8 border-l-2 active:text-black"
+          >Borough Distribution</RouterLink
+        >
       </nav>
     </div>
   </header>
