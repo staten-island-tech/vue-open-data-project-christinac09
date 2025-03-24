@@ -72,7 +72,7 @@ async function getSpecificAge(data, age) {
         labels: arrest.types.map((type) => type.type),
         datasets: [
           {
-            label: 'Types of Arrests per Age Group',
+            label: 'Number of Arrests',
             data: arrest.types.map((type) => type.count),
             backgroundColor: ['#a5b299', '#c1c4a4', '#b7c297'],
           },

@@ -1,6 +1,7 @@
 <template>
   <main>
-    <div class="container mx-auto p-4 absolute top-32 left-8" v-if="loaded">
+    <h2 class="absolute top-40 left-16 text-xl">Arrest Type Distribution by Age Group</h2>
+    <div class="container mx-auto p-4 absolute top-48 left-8" v-if="loaded">
       <AgeButton v-for="age in ages" :key="age" :age="age"></AgeButton>
     </div>
   </main>
