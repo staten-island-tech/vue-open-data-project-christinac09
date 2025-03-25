@@ -67,6 +67,7 @@ async function getMonthlyData(data) {
       arrestsPerMonth.push({ month: arrestMonth, amount: 1 })
     }
   })
+  arrestsPerMonth.sort((a, b) => a.month - b.month)
   monthlyData.value = {
     labels: arrestsPerMonth.map((arrest) => arrest.month),
     datasets: [
