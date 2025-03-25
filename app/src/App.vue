@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header class="absolute top-8 left-16">
-    <h1 class="text-3xl my-4">NYC Arrest Data</h1>
+    <h1 class="text-3xl my-4">NYC Arrest Data in 2024</h1>
     <div class="wrapper">
       <nav class="mt-2">
         <RouterLink to="/" class="px-8 border-r-2 active:text-black">Home</RouterLink>
