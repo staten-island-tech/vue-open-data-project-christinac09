@@ -15,6 +15,12 @@ const boroughData = ref({
 })
 const chartOptions = reactive({
   responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Arrests Per Borough',
+    },
+  },
 })
 async function getArrests() {
   try {
