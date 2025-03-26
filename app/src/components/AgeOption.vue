@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   age: String,

@@ -54,7 +54,6 @@ async function getArrests() {
   }
 }
 async function getMonthlyData(data) {
-  //filter to get arrests per month
   const arrestsPerMonth = []
 
   data.forEach((arrest) => {

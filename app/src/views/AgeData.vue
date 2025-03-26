@@ -48,6 +48,7 @@ async function getAges(data) {
     if (existingAge) {
       let existingType = existingAge.types.find((obj) => obj.type === arrest.ofns_desc)
       if (arrest.ofns_desc !== '(null)') {
+        // if i combine this w/ line below, the else would still run if null
         if (existingType) {
           existingType.count++
         } else {
@@ -59,15 +60,6 @@ async function getAges(data) {
     }
   })
   return arrestsPerAge
-  /* ageData.value = {
-    labels: arrestsPerAge.map((arrest) => arrest.age_group),
-    datasets: [
-      {
-        label: 'Types of Arrests per Age Group',
-        data: arrestsPerAge.map((arrest) => arrest.amount),
-      },
-    ],
-  } */
 }
 async function getSpecificAge(data, age) {
   data.forEach((arrest) => {

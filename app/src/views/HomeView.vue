@@ -2,13 +2,13 @@
   <main>
     <h2 class="absolute top-40 left-16 text-xl">Arrest Type Distribution by Age Group</h2>
     <div class="container mx-auto p-4 absolute top-48 left-8" v-if="loaded">
-      <AgeButton v-for="age in ages" :key="age" :age="age"></AgeButton>
+      <AgeOption v-for="age in ages" :key="age" :age="age"></AgeOption>
     </div>
   </main>
 </template>
 
 <script setup>
-import AgeButton from '../components/AgeButton.vue'
+import AgeOption from '../components/AgeOption.vue'
 import { ref, reactive, onMounted } from 'vue'
 let loaded = ref(false)
 const arrestData = ref([])
@@ -27,7 +27,6 @@ async function getArrests() {
     alert('error fetching arrest data')
   }
 }
-//type for each age
 async function getAges(data) {
   const arrestsPerAge = []
   data.forEach((arrest) => {
