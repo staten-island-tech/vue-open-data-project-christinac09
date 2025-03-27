@@ -62,21 +62,18 @@ async function getAges(data) {
   return arrestsPerAge
 }
 async function getSpecificAge(data, age) {
-  data.forEach((arrest) => {
-    if (arrest.age === age) {
-      ageData.value = {
-        labels: arrest.types.map((type) => type.type),
-        datasets: [
-          {
-            label: 'Number of Arrests',
-            data: arrest.types.map((type) => type.count),
-            backgroundColor: ['#a5b299', '#c1c4a4', '#b7c297'],
-          },
-        ],
-      }
-      return arrest
-    }
-  })
+  const filtered = data.filter((arrest) => arrest.age === age) //filtered returns an array of the object
+  ageData.value = {
+    labels: filtered[0].types.map((type) => type.type),
+    datasets: [
+      {
+        label: 'Number of Arrests',
+        data: filtered[0].types.map((type) => type.count),
+        backgroundColor: ['#a5b299', '#c1c4a4', '#b7c297'],
+      },
+    ],
+  }
+  return filtered[0]
 }
 onMounted(async () => {
   const arrests = await getArrests()
