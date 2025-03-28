@@ -30,6 +30,7 @@
       </div>
 
       <div class="w-[70%] mx-4">
+        <h3 v-if="filteredData.labels.length === 0" class="text-lg m-12">No data available</h3>
         <PieChart v-if="loaded" :chartData="filteredData" :chartOptions="chartOptions" />
       </div>
     </div>
