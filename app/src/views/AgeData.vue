@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { getArrests } from '../components/function.js'
 import PieChart from '../components/PieChart.vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
@@ -22,24 +23,11 @@ const chartOptions = reactive({
     legend: false,
     title: {
       display: true,
-      text: 'Arrest Type Distribution by Age Group ',
+      text: `Arrest Type Distribution by Age Group (${ageSelected})`,
     },
   },
 })
-async function getArrests() {
-  try {
-    const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
-    if (response.status != 200) {
-      throw new Error(response)
-    } else {
-      const data = await response.json()
-      arrestData.value = data
-      return data
-    }
-  } catch (error) {
-    alert('error fetching arrest data')
-  }
-}
+
 //type for each age
 async function getAges(data) {
   const arrestsPerAge = []
@@ -79,7 +67,6 @@ onMounted(async () => {
   const arrests = await getArrests()
   const data = await getAges(arrests)
   await getSpecificAge(data, ageSelected)
-
   loaded.value = true
 })
 </script>

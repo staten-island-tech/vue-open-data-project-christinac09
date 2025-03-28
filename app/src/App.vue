@@ -14,6 +14,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/arrests-by-boro" class="px-8 border-l-2 active:text-black"
           >Borough Distribution</RouterLink
         >
+        <RouterLink to="/arrests-by-age" class="px-8 border-l-2 active:text-black"
+          >Age Group Distribution</RouterLink
+        >
       </nav>
     </div>
   </header>

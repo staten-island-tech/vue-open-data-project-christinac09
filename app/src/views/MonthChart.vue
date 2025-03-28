@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { getArrests } from '../components/function'
 import { ref, reactive, onMounted } from 'vue'
 import LineChart from '@/components/LineChart.vue'
 let loaded = ref(false)
@@ -39,20 +40,7 @@ const chartOptions = ref({
     },
   },
 })
-async function getArrests() {
-  try {
-    const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json')
-    if (response.status != 200) {
-      throw new Error(response)
-    } else {
-      const data = await response.json()
-      arrestData.value = data
-      return data
-    }
-  } catch (error) {
-    alert('error fetching arrest data')
-  }
-}
+
 async function getMonthlyData(data) {
   const arrestsPerMonth = []
 
